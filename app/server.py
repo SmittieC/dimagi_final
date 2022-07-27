@@ -3,14 +3,12 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="app/templates")
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 
 @app.get("/items/{id}", response_class=HTMLResponse)
 async def read_item(request: Request, id: str):
-    return templates.TemplateResponse("item.html", {"request": request, "id": id})
+    return templates.TemplateResponse("user.html", {"request": request, "id": id})
