@@ -20,18 +20,7 @@ async def home(request: Request):
     return templates.TemplateResponse(
         "create_user.html",
         {"request": request, "create_user_url": "http://localhost:8000"},
-    )
-
-
-@app.post("/users", response_class=HTMLResponse)
-async def create_user(request: Request):
-    form = await request.form()
-    create_user(name=form["username"], email=form["email"])
-
-    return templates.TemplateResponse(
-        "create_user.html",
-        {"request": request, "user_created": True},
-        status_code=HTTPStatus.OK,
+        status_code=HTTPStatus.OK
     )
 
 

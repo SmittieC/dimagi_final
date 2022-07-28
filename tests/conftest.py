@@ -8,7 +8,7 @@ def db_setup():
 
     # Clear the database and recreate it
     database_url = Config.DATABASE_URL + "/test"
-    if database_exists(database_url):  # pragma: no cover
+    if database_exists(database_url):
         drop_database(database_url)
     create_database(database_url)
 
@@ -17,6 +17,7 @@ def db_setup():
 def table_setup(db_setup):
     from app.db.base import Base, engine
 
+    breakpoint()
     Base.metadata.create_all(engine)
     yield
     Base.metadata.drop_all(engine)

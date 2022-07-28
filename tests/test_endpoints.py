@@ -8,7 +8,7 @@ from app.server import app, get_users
 client = TestClient(app)
 
 
-def test_get_users() -> None:
+def test_get_users(table_setup) -> None:
     expected_email = "someone@example.com"
     expected_name = "John"
     _create_user(name=expected_name, email=expected_email)
@@ -24,5 +24,5 @@ def _create_user(name: str, email: str) -> None:
     with session_scope() as db_session:
         user = User(name=name, email=email)
         db_session.add(user)
-        pet = Pet(name=name, user=user)
+        pet = Pet(name=f"{name}'s pet", user=user)
         db_session.add(pet)
