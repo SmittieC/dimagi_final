@@ -18,3 +18,22 @@ lint:
 
 run-server:
     uvicorn app.server:app --host=127.0.0.1 --port=8000 --reload
+
+default_revision := "head"
+default_downgrade_revision := "-1"
+
+migrate revision=default_revision:
+    alembic upgrade {{revision}}
+
+makemigrations +ARGS='':
+    alembic revision --autogenerate -m "{{ARGS}}"
+
+test:
+    python -m pytest tests/*
+
+db-up:
+    docker run -d --name dimagi_app_db -e POSTGRES_PASSWORD=dev -e POSTGRES_USER=dimagi -e POSTGRES_DB=backend -p 5432:5432 postgres:14-alpine    
+
+db-down:
+    docker stop dimagi_app_db
+    docker rm dimagi_app_db --volumes

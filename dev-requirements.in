@@ -2,3 +2,6 @@ black
 mypy
 flake8
 isort
+pytest
+sqlalchemy-utils
+unittest2
