@@ -8,7 +8,7 @@ from app.server import app, get_users
 client = TestClient(app)
 
 
-def test_get_users(table_setup) -> None:
+def test_get_users() -> None:
     expected_email = "someone@example.com"
     expected_name = "John"
     _create_user(name=expected_name, email=expected_email)

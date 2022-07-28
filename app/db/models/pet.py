@@ -16,4 +16,4 @@ class Pet(Base):
     name = Column(String, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
 
-    user = floor_snapshot = relationship("User", back_populates="pets")
+    user = relationship("User", back_populates="pets")
