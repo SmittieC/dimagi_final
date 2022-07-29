@@ -41,7 +41,7 @@ view_args = {
 #     form_data = await request.form()
 #     email = form_data.get("email")
 #     password = form_data.get("password")
-#     if email == Config.ADMIN_EMAIL and password == Config.ADMIN_PASSWORD: 
+#     if email == Config.ADMIN_EMAIL and password == Config.ADMIN_PASSWORD:
 #         view_args["updated"] = False
 #         return templates.TemplateResponse(
 #             "basic_form.html",
@@ -49,6 +49,7 @@ view_args = {
 #             status_code=HTTPStatus.OK,
 #         )
 #     return RedirectResponse(app.url_path_for("landing_page"))
+
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
