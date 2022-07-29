@@ -1,7 +1,9 @@
 ## To run the server:
-
+Export the `GEOCODER_API_KEY` environment variable
 > just db-up
+
 > just migrate
+
 > just run-server
 
 ## To run the tests
