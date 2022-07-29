@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from email_validator import EmailNotValidError, validate_email
 from fastapi import Depends, FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic.error_wrappers import ValidationError
@@ -26,6 +26,29 @@ view_args = {
     "success": True,
 }
 
+# TODO: Finish off login attempt
+# @app.get("/", response_class=HTMLResponse)
+# async def landing_page(request: Request):
+#     return templates.TemplateResponse(
+#         "login_page.html",
+#         {"request": request, "homepage_url": Config.SERVER_URL + "/home"}, # TODO: Get path dynamically
+#         status_code=HTTPStatus.OK,
+#     )
+
+
+# @app.get("/", response_class=HTMLResponse)
+# async def home(request: Request):
+#     form_data = await request.form()
+#     email = form_data.get("email")
+#     password = form_data.get("password")
+#     if email == Config.ADMIN_EMAIL and password == Config.ADMIN_PASSWORD: 
+#         view_args["updated"] = False
+#         return templates.TemplateResponse(
+#             "basic_form.html",
+#             {"request": request, **view_args},
+#             status_code=HTTPStatus.OK,
+#         )
+#     return RedirectResponse(app.url_path_for("landing_page"))
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -51,7 +74,7 @@ async def update_location(
         employee_controller.update_employee_location(employee_data, db_session=session)
     except EmployeeException as exception:
         view_args["success"] = False
-        view_args["error_message"] = exception.message
+        view_args["error_message"] = str(exception)
     except (ValidationError, EmailNotValidError):
         view_args["success"] = False
         view_args["error_message"] = "Invalid email or password"

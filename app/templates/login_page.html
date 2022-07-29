@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Current employee locations</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <form method="GET" action="{{login}}">
+        <div>
+            <input type="text" required placeholder="username" name="username" value="{{username}}" class="form-control">
+        </div>
+        <div>
+            <input type="text" required placeholder="password" name="password" value="{{password}}" class="form-control">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</body>
+</html>

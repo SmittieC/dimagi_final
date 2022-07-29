@@ -1,5 +1,6 @@
 class EmployeeException(Exception):
-    pass
+    def __init__(self, message: str):
+        super().__init__(message)
 
 
 class CityNotFoundException(EmployeeException):

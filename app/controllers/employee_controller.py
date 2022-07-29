@@ -10,7 +10,7 @@ from app.db.models.employee_location import EmployeeLocation
 def update_employee_location(
     employee_form: datastructures.EmployeeForm, db_session: Session
 ) -> None:
-    """ Updates the employee's location. If the latitude and longitude cannot be found"""
+    """Updates the employee's location. If the latitude and longitude cannot be found"""
     city_coordinates = city_controller.get_city_coordinates(employee_form.city)
     employee = EmployeeLocation(
         email=employee_form.email,
