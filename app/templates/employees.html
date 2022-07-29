@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>Current employee locations</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+<div>
+    <ol>
+        {%for employee in employees%}
+            <li>
+                email: {{employee["email"]}}
+                City: {{employee["city"]}}
+                Lat: {{employee["lat"]}}
+                Lng: {{employee["lng"]}}
+                Reported at: {{employee["reported_at"]}}
+            </li>
+        {% endfor %}
+    </ol>
+</div>
+
+<div>
+    <Button type="button" onclick="window.location.href='{{url_for('home')}}'">Update my location</Button>
+</div>
+</body>
+</html>

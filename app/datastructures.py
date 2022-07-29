@@ -1,4 +1,7 @@
-from pydantic import BaseModel
+from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel, Field
 
 
 class EmployeeForm(BaseModel):
@@ -7,5 +10,12 @@ class EmployeeForm(BaseModel):
 
 
 class Coordinates(BaseModel):
-    lat: str
-    lng: str
+    lat: Optional[str] = Field(default=None)
+    lng: Optional[str] = Field(default=None)
+
+
+class EmployeeLocation(BaseModel):
+    email: str
+    city: str
+    reported_at: datetime
+    coordinates: Coordinates

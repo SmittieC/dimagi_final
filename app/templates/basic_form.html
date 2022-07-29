@@ -3,8 +3,13 @@
     <title>Update location</title>
     <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
 </head>
+<div>
+    {% if updated and not success %}
+        {{error_message}}
+    {% endif %}
+</div>
 <body>
-    <form method="POST" action="{{server_url}}">
+    <form method="POST" action="{{update_url}}">
         <div>
             <input type="text" required placeholder="City e.g. Dodoma" name="city" value="{{city}}" class="form-control">
         </div>
@@ -15,5 +20,8 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
+    <div>
+        <Button type="button" onclick="window.location.href='{{url_for('employee_locations')}}'">View employee locations</Button>
+    </div>
 </body>
 </html>

@@ -1,14 +1,15 @@
-from geocoder import geonames
+from typing import List
+
 from sqlalchemy.orm import Session
 
-from app.config import Config
-from app.datastructures import Coordinates, EmployeeForm
-from app.db.models.employee import Employee
+from app.controllers import city_controller
+from app.datastructures import EmployeeForm, EmployeeLocation
+from app.db.models import employee_location
 
 
 def update_employee_location(employee_form: EmployeeForm, db_session: Session) -> None:
-    city_coordinates = get_city_coordinates(employee_form.city)
-    employee = Employee(
+    city_coordinates = city_controller.get_city_coordinates(employee_form.city)
+    employee = employee_location.EmployeeLocation(
         email=employee_form.email,
         city=employee_form.city,
         latitude=city_coordinates.lat,
@@ -17,8 +18,8 @@ def update_employee_location(employee_form: EmployeeForm, db_session: Session) -
     db_session.add(employee)
 
 
-def get_city_coordinates(city_name: str) -> Coordinates:
-    """Query the geo-service to find the city's lat and lng"""
-    # TODO: Improve: Store local copy of this info and query database rather
-    city_details = geonames(city_name, key=Config.GEOCODER_API_KEY)
-    return Coordinates(lat=city_details.lat, lng=city_details.lng)
+def get_employee_current_locations(db_session: Session) -> List[EmployeeLocation]:
+    employees = db_session.query(Employee.email)
+    db_session.query(Employee).group_by(Employee.email).order_by(
+        Employee.inserted_at.desc()
+    ).all()

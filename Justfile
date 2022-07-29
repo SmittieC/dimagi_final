@@ -28,8 +28,8 @@ migrate revision=default_revision:
 makemigrations +ARGS='':
     alembic revision --autogenerate -m "{{ARGS}}"
 
-test:
-    python -m pytest tests/*
+test +ARGS='':
+    python -m pytest {{ARGS}}
 
 db-up:
     docker run -d --name dimagi_app_db -e POSTGRES_PASSWORD=dev -e POSTGRES_USER=dimagi -e POSTGRES_DB=backend -p 5432:5432 postgres:14-alpine    

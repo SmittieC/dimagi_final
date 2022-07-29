@@ -5,3 +5,4 @@ isort
 pytest
 sqlalchemy-utils
 unittest2
+mock

@@ -1,1 +1,1 @@
-from app.db.models.employee import Employee
+from app.db.models.employee_location import EmployeeLocation

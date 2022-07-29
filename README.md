@@ -1,4 +1,3 @@
-# dimagi_final
-
-# Setup
-    docker run -d --name dimagi_app_db -e POSTGRES_PASSWORD=dev -e POSTGRES_USER=dimagi -e POSTGRES_DB=backend -p 5432:5432 postgres:14-alpine
+# To improve:
+- City / Location Caching by means of another table
+- Test DB drop / table recreation
