@@ -1,3 +1,8 @@
-# To improve:
-- City / Location Caching by means of another table
-- Test DB drop / table recreation
+## To run the server:
+
+> just db-up
+> just migrate
+> just run-server
+
+# High level things to improve:
+- Cache city info by means of using another table.

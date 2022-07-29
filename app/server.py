@@ -1,10 +1,11 @@
 from http import HTTPStatus
 
+from email_validator import EmailNotValidError, validate_email
 from fastapi import Depends, FastAPI, Request
-from fastapi.exceptions import HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from pydantic.error_wrappers import ValidationError
 from sqlalchemy.orm import Session
 
 from app.config import Config
@@ -42,14 +43,18 @@ async def update_location(
     session: Session = Depends(session_generator),
 ):
     form_data = await request.form()
-    employee_data = EmployeeForm(city=form_data["city"], email=form_data["email"])
+    email = form_data.get("email")
 
     try:
+        validate_email(email)
+        employee_data = EmployeeForm(city=form_data.get("city"), email=email)
         employee_controller.update_employee_location(employee_data, db_session=session)
     except EmployeeException as exception:
         view_args["success"] = False
         view_args["error_message"] = exception.message
-
+    except (ValidationError, EmailNotValidError):
+        view_args["success"] = False
+        view_args["error_message"] = "Invalid email or password"
     return templates.TemplateResponse(
         "basic_form.html",
         {"request": request, **view_args},
@@ -57,16 +62,16 @@ async def update_location(
     )
 
 
-@app.post("/locations", response_class=HTMLResponse)
+@app.get("/employee-locations", response_class=HTMLResponse)
 async def employee_locations(
     request: Request,
     session: Session = Depends(session_generator),
 ):
-    form_data = await request.form()
-    employee_data = EmployeeForm(city=form_data["city"], email=form_data["email"])
-
     return templates.TemplateResponse(
         "employees.html",
-        {"request": request},
+        {
+            "request": request,
+            "employees": employee_controller.get_employee_current_locations(session),
+        },
         status_code=HTTPStatus.OK,
     )

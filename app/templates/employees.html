@@ -5,17 +5,26 @@
 </head>
 <body>
 <div>
-    <ol>
-        {%for employee in employees%}
-            <li>
-                email: {{employee["email"]}}
-                City: {{employee["city"]}}
-                Lat: {{employee["lat"]}}
-                Lng: {{employee["lng"]}}
-                Reported at: {{employee["reported_at"]}}
-            </li>
-        {% endfor %}
-    </ol>
+    <table style="width:100%", border="1">
+        <thead>
+              <th>Email</th>
+              <th>City</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>Position reported at</th>
+           </thead>
+           <tbody>
+               {%for employee in employees%}
+               <tr>
+                    <td>{{employee.email}}</td>
+                    <td>{{employee.city}}</td>
+                    <td>{{employee.coordinates.lat}}</td>
+                    <td>{{employee.coordinates.lat}}</td>
+                    <td>{{employee.reported_at}}</td>
+               </tr>
+           {% endfor %}
+           </tbody>
+    </table>
 </div>
 
 <div>

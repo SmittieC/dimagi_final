@@ -3,7 +3,7 @@ from mock import patch
 
 from app.controllers.city_controller import get_city_coordinates
 from app.datastructures import Coordinates
-from app.exceptions import InvalidCityException
+from app.exceptions import CityNotFoundException
 
 
 @patch("app.controllers.city_controller.geonames")
@@ -24,5 +24,5 @@ def test_get_city_coordinates_raises_for_invalid_city(mock_geonames):
         ok: bool = False
 
     mock_geonames.return_value = MockGeonamesQuery()
-    with pytest.raises(InvalidCityException):
+    with pytest.raises(CityNotFoundException):
         get_city_coordinates(city_name="Some city")

@@ -56,3 +56,7 @@ def test_update_employee_location_success_without_location_data(mock_city_contro
         assert created_employee_location.inserted_at is not None
         assert created_employee_location.latitude == None
         assert created_employee_location.longitude == None
+
+
+def test_get_employee_current_locations():
+    pass
