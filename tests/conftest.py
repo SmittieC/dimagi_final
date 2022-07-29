@@ -1,7 +1,6 @@
 import pytest
 from sqlalchemy_utils import create_database, database_exists, drop_database
 
-
 @pytest.fixture(scope="package")
 def db_setup():
     from app.config import Config
@@ -17,7 +16,6 @@ def db_setup():
 def table_setup(db_setup):
     from app.db.base import Base, engine
 
-    breakpoint()
     Base.metadata.create_all(engine)
     yield
     Base.metadata.drop_all(engine)
