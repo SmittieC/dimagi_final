@@ -1,6 +1,7 @@
 import pytest
 from sqlalchemy_utils import create_database, database_exists, drop_database
 
+
 @pytest.fixture(scope="package")
 def db_setup():
     from app.config import Config

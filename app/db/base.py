@@ -10,12 +10,12 @@ engine = create_engine(Config.DATABASE_URL)
 
 Base = declarative_base()
 
-session_factory = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine)
 
 
 def session_generator() -> Generator[orm.Session, None, None]:
     """Provide a transactional scope"""
-    session = session_factory()
+    session = Session()
     try:
         yield session
         session.commit()
